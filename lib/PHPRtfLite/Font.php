@@ -111,6 +111,12 @@ class PHPRtfLite_Font
      */
     protected $_animation;
 
+    /**
+     * letter spacing
+     * @var integer
+     */
+    protected $_spacing;
+
 
     /**
      * constructor
@@ -120,12 +126,13 @@ class PHPRtfLite_Font
      * @param   string  $color              font color
      * @param   string  $backgroundColor    background color of font
      */
-    public function __construct($size = 10, $fontFamily = null, $color = null, $backgroundColor = null)
+    public function __construct($size = 10, $fontFamily = null, $color = null, $backgroundColor = null, $letterSpacing = 0)
     {
         $this->_size            = $size;
         $this->_fontFamily      = $fontFamily;
         $this->_color           = $color;
         $this->_backgroundColor = $backgroundColor;
+        $this->_spacing         = $letterSpacing;
     }
 
 
@@ -168,6 +175,28 @@ class PHPRtfLite_Font
     public function getFontFamily()
     {
         return $this->_fontFamily;
+    }
+
+
+    /**
+     * gets letter spacing
+     *
+     * @return integer
+     */
+    public function getLetterSpacing()
+    {
+        return $this->_spacing;
+    }
+
+
+    /**
+     * sets letter spacing
+     *
+     * @return string
+     */
+    public function setLetterSpacing( int $size )
+    {
+        $this->_spacing = $size;
     }
 
 
@@ -373,6 +402,11 @@ class PHPRtfLite_Font
             if ($colorIndex !== false) {
                 $content .= '\chcbpat' . $colorIndex . ' ';
             }
+        }
+
+        if ($this->_spacing > 0) {
+            $content .= '\expnd' . $this->_spacing . ' ';
+            $content .= '\expndtw' . $this->_spacing . ' ';
         }
 
         if ($this->_isBold) {
