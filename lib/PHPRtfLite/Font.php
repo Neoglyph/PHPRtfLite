@@ -194,7 +194,7 @@ class PHPRtfLite_Font
      *
      * @return string
      */
-    public function setLetterSpacing( int $size )
+    public function setLetterSpacing( $size )
     {
         $this->_spacing = $size;
     }
@@ -404,7 +404,7 @@ class PHPRtfLite_Font
             }
         }
 
-        if ($this->_spacing > 0) {
+        if ($this->_spacing !== 0) {
             $content .= '\expnd' . $this->_spacing . ' ';
             $content .= '\expndtw' . $this->_spacing . ' ';
         }
